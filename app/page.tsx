@@ -1,13 +1,19 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import SceneManager from '@/components/core/SceneManager';
 import AudioGate from '@/components/core/AudioGate';
 
 export default function Page() {
   const [audioReady, setAudioReady] = useState(false);
   const [skipIntro, setSkipIntro] = useState(false);
-
+  useEffect(() => {
+    const isMobile = window.innerWidth <= 768;
+    if (isMobile) {
+      setSkipIntro(true);
+    }
+    console.log('hi');
+  }, []);
   const handleDone = () => {
     setAudioReady(true);
   };
