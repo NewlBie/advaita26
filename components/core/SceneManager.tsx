@@ -33,9 +33,6 @@ export default function SceneManager({ skipIntro = false }: SceneManagerProps) {
     // Phase 3: All scenes (Scene 3) visible
     const [activePhase, setActivePhase] = useState(skipIntro ? 3 : 1);
     const introRemovedRef = useRef(false);
-    useEffect(()=>{
-        console.log(activePhase);
-    },[activePhase]);
     /* ---------- HANDLE ENTER WEBSITE ---------- */
     const handleEnterWebsite = () => {
         if (introRemovedRef.current) return;
