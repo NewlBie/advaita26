@@ -121,12 +121,12 @@ export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
 
     return (
         <div className={styles.container}>
-            <div className={styles.scanlines} />
-            <div className={styles.sun} />
-            <div className={styles.grid} />
+            <div className={styles.introOverlay} />
 
             <div className={styles.content}>
-                <h1 className={styles.title}>ADVAITA 26</h1>
+                <div className={styles.titleContainer}>
+                    <h1 className={styles.strangerTitle}>ADVAITA 26</h1>
+                </div>
 
                 <div className={styles.progressContainer}>
                     <div
@@ -135,12 +135,8 @@ export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
                     />
                 </div>
 
-                <div className={styles.progressText}>
-                    {progress}%
-                </div>
-
                 <div className={styles.statusText}>
-                    {statusText}<span className={styles.blink}>_</span>
+                    {statusText}
                 </div>
             </div>
         </div>
