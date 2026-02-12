@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import ScrollTrigger from 'gsap/ScrollTrigger';
 import base from '@/styles/parallax.base.module.css';
@@ -21,6 +21,7 @@ export default function SceneTwo({
 }) {
 
     const frameRef = useRef<HTMLDivElement>(null);
+    const [isFullyVisible, setIsFullyVisible] = useState(false);
 
     useEffect(() => {
         const frame = frameRef.current;
@@ -214,6 +215,12 @@ export default function SceneTwo({
                 scrub: true,
                 onUpdate: self => {
                     scrollP = self.progress;
+                    // Only show portal when scene is mostly scrolled in (85%+)
+                    if (self.progress > 0.85) {
+                        setIsFullyVisible(true);
+                    } else {
+                        setIsFullyVisible(false);
+                    }
                 },
             });
         }, frame);
@@ -287,119 +294,21 @@ export default function SceneTwo({
                     />
                 </div>
 
-                {/* Enter Website Button */}
-                {onEnterWebsite && (
-                    <button
-                        className="enter-website-btn"
-                        onClick={onEnterWebsite}
-                    >
-                        <span className="enter-website-btn__icon">⚡</span>
-                        <span className="enter-website-btn__text">Enter Website</span>
-                        <span className="enter-website-btn__arrow">↓</span>
-                    </button>
-                )}
+                {/* Stylized Portal Text (The Void) */}
+                <div
+                    className={`${base.portalText} ${base.glitch} ${base.portalGlow}`}
+                    style={{
+                        opacity: isFullyVisible ? 1 : 0,
+                        pointerEvents: isFullyVisible ? 'auto' : 'none'
+                    }}
+                    onClick={onEnterWebsite}
+                >
+                    <span style={{ fontSize: '0.8em', opacity: 0.7 }}>Enter</span>
+                    <br />
+                    THE VOID
+                </div>
 
             </section>
-
-            <style jsx>{`
-                @import url('https://fonts.cdnfonts.com/css/itc-benguiat');
-
-                .enter-website-btn {
-                    position: fixed;
-                    bottom: 60px;
-                    left: 50%;
-                    transform: translateX(-50%);
-                    z-index: 1000;
-                    
-                    display: flex;
-                    align-items: center;
-                    gap: 0.75rem;
-                    
-                    padding: 1rem 2.5rem;
-                    background: linear-gradient(180deg, rgba(196, 30, 58, 0.9) 0%, rgba(139, 0, 0, 0.9) 100%);
-                    border: 2px solid #c41e3a;
-                    border-radius: 0;
-                    
-                    color: #fff;
-                    font-family: 'ITC Benguiat', 'Times New Roman', serif;
-                    font-size: 1.1rem;
-                    letter-spacing: 0.15em;
-                    text-transform: uppercase;
-                    
-                    cursor: pointer;
-                    transition: all 0.3s ease;
-                    
-                    box-shadow: 
-                        0 0 30px rgba(196, 30, 58, 0.5),
-                        0 0 60px rgba(196, 30, 58, 0.3),
-                        inset 0 1px 0 rgba(255, 255, 255, 0.1);
-                    
-                    animation: btnPulse 2s ease-in-out infinite;
-                }
-
-                @keyframes btnPulse {
-                    0%, 100% {
-                        box-shadow: 
-                            0 0 30px rgba(196, 30, 58, 0.5),
-                            0 0 60px rgba(196, 30, 58, 0.3),
-                            inset 0 1px 0 rgba(255, 255, 255, 0.1);
-                        transform: translateX(-50%) skewX(0deg);
-                    }
-                    2% {
-                        transform: translateX(-50%) skewX(10deg);
-                        box-shadow: 
-                             -2px 0 #00ffff, 
-                             2px 0 #ff00ff;
-                    }
-                    4% {
-                        transform: translateX(-50%) skewX(-10deg);
-                        box-shadow: 
-                             -2px 0 #ff00ff, 
-                             2px 0 #00ffff;
-                    }
-                    5% {
-                        transform: translateX(-50%) skewX(0deg);
-                        box-shadow: 
-                             0 0 30px rgba(196, 30, 58, 0.5),
-                             0 0 60px rgba(196, 30, 58, 0.3),
-                             inset 0 1px 0 rgba(255, 255, 255, 0.1);
-                    }
-                    50% {
-                        box-shadow: 
-                            0 0 40px rgba(196, 30, 58, 0.7),
-                            0 0 80px rgba(196, 30, 58, 0.4),
-                            inset 0 1px 0 rgba(255, 255, 255, 0.2);
-                    }
-                }
-
-                .enter-website-btn:hover {
-                    background: linear-gradient(180deg, rgba(212, 42, 70, 0.95) 0%, rgba(160, 16, 16, 0.95) 100%);
-                    transform: translateX(-50%) scale(1.05);
-                    box-shadow: 
-                        0 0 50px rgba(196, 30, 58, 0.7),
-                        0 0 100px rgba(196, 30, 58, 0.4),
-                        inset 0 1px 0 rgba(255, 255, 255, 0.2);
-                    animation: btnPulse 0.2s infinite; /* rapid glitch on hover */
-                }
-
-                .enter-website-btn__icon {
-                    font-size: 1.3rem;
-                }
-
-                .enter-website-btn__text {
-                    font-weight: 400;
-                }
-
-                .enter-website-btn__arrow {
-                    font-size: 1.2rem;
-                    animation: arrowBounce 1s ease-in-out infinite;
-                }
-
-                @keyframes arrowBounce {
-                    0%, 100% { transform: translateY(0); }
-                    50% { transform: translateY(4px); }
-                }
-            `}</style>
         </main>
     );
 }
