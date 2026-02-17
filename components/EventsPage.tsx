@@ -5,47 +5,7 @@ import Navbar from '@/components/core/Navbar';
 import MusicPlayer from '@/components/core/MusicPlayer';
 import styles from '@/styles/Events.module.css';
 
-interface Event {
-  id: string;
-  title: string;
-  date: string;
-  time: string;
-  location: string;
-  description: string;
-  image: string;
-  isCorrupted?: boolean; // For the "Upside Down" effect
-}
-
-const EVENTS_DATA: Event[] = [
-  {
-    id: 'EV-001',
-    title: "Snow Ball '84",
-    date: "DEC 23, 1984",
-    time: "19:00 HRS",
-    location: "Hawkins Middle Gym",
-    description: "The classic middle school dance. High risk of psychic interference. Dress code: 80s Formal.",
-    image: "https://images.unsplash.com/photo-1533219057257-4bb9ed5d2cc6?q=80&w=1000",
-  },
-  {
-    id: 'EV-002',
-    title: "The Gate Breach",
-    date: "ERROR_NULL",
-    time: "00:00 HRS",
-    location: "Hawkins Lab - Floor -4",
-    description: "UNAUTHORIZED ACCESS DETECTED. Entities from the lower dimension are manifesting. Proceed with caution.",
-    image: "https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?q=80&w=1000",
-    isCorrupted: true,
-  },
-  {
-    id: 'EV-003',
-    title: "Starcourt Rally",
-    date: "JULY 04, 1985",
-    time: "14:00 HRS",
-    location: "Starcourt Mall",
-    description: "Celebrate the grand opening. Scoops Ahoy is serving free samples. Pay no attention to the power fluctuations.",
-    image: "https://images.unsplash.com/photo-1519608487953-e999c86e7455?q=80&w=1000",
-  }
-];
+import { events, type Event } from '@/data/events';
 
 export default function EventsPage() {
   const [glitch, setGlitch] = useState(false);
@@ -72,15 +32,15 @@ export default function EventsPage() {
         <div className={styles.header}>
           <div className={styles.topLabel}>HAWKINS INDIANA // 1984</div>
           <h1 className={styles.mainTitle}>
-            <span className={styles.glowText}>ADVAITA</span> 
+            <span className={styles.glowText}>ADVAITA</span>
             <span className={styles.redText}>EVENTS</span>
           </h1>
         </div>
 
         <div className={styles.grid}>
-          {EVENTS_DATA.map((event) => (
-            <div 
-              key={event.id} 
+          {events.map((event) => (
+            <div
+              key={event.id}
               className={`${styles.card} ${event.isCorrupted ? styles.corrupted : ''}`}
             >
               <div className={styles.imageContainer}>
@@ -96,13 +56,16 @@ export default function EventsPage() {
                 </div>
                 <h2 className={styles.eventTitle}>{event.title}</h2>
                 <p className={styles.description}>{event.description}</p>
-                
+
                 <div className={styles.locationBlock}>
                   <span className={styles.label}>LOC:</span>
                   <span className={styles.value}>{event.location}</span>
                 </div>
 
-                <button className={styles.actionBtn}>
+                <button
+                  className={styles.actionBtn}
+                  onClick={() => window.open(event.link, '_blank')}
+                >
                   <span className={styles.btnLabel}>ACCESS FILE</span>
                   <div className={styles.btnGlow} />
                 </button>

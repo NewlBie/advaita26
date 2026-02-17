@@ -1,16 +1,18 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
+import { useSearchParams } from 'next/navigation';
 import SceneManager from '@/components/core/SceneManager';
 import AudioGate from '@/components/core/AudioGate';
 import LoadingScreen from '@/components/core/LoadingScreen';
 import { unlockAudio, registerMusic, playMusic } from '@/components/core/audio';
 
-export default function Page() {
+function PageContent() {
   const [loadingComplete, setLoadingComplete] = useState(false);
   const [audioReady, setAudioReady] = useState(false);
   const [skipIntro, setSkipIntro] = useState(false);
   const [isMobile, setIsMobile] = useState<boolean | null>(null);
+  const searchParams = useSearchParams();
 
   // Detect mobile devices on mount
   useEffect(() => {
@@ -19,8 +21,10 @@ export default function Page() {
         /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
       setIsMobile(mobile);
 
-      // On mobile, automatically skip to website
-      if (mobile) {
+      const shouldSkip = searchParams?.get('skip') === 'true';
+
+      // On mobile, automatically skip to website, OR if skip parameter is present
+      if (mobile || shouldSkip) {
         unlockAudio();
         registerMusic('scene1', '/audio/music/ST_INTRO.mp3', 0.8);
         registerMusic('scene2', '/audio/music/vecna.mp3', 0.8);
@@ -28,12 +32,12 @@ export default function Page() {
         playMusic('scene3');
         setSkipIntro(true);
         setAudioReady(true);
-        setLoadingComplete(true); // Skip loading screen on mobile for speed
+        setLoadingComplete(true); // Skip loading screen on mobile/skip-param for speed
       }
     };
 
     checkMobile();
-  }, []);
+  }, [searchParams]);
 
   const handleDone = () => {
     setAudioReady(true);
@@ -74,4 +78,12 @@ export default function Page() {
   }
 
   return <SceneManager skipIntro={skipIntro} />;
+}
+
+export default function Page() {
+  return (
+    <Suspense fallback={null}>
+      <PageContent />
+    </Suspense>
+  );
 }

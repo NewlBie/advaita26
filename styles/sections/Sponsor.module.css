@@ -17,7 +17,7 @@
   border-bottom: 1px solid #222;
   padding: 40px 0;
   position: relative;
-  box-shadow: 0 0 80px rgba(0,0,0,1);
+  box-shadow: 0 0 80px rgba(0, 0, 0, 1);
 }
 
 /* FOLDER HEADER */
@@ -82,14 +82,19 @@
 }
 
 /* Pause scroll when user hovers to inspect */
-.scrollWrapper:hover .evidenceRow {
+.scrollContainer:hover .evidenceRow {
   animation-play-state: paused;
 }
 
 @keyframes infiniteScroll {
-  from { transform: translateX(0); }
+  from {
+    transform: translateX(0);
+  }
+
   /* We scroll half of the duplicated list */
-  to { transform: translateX(-50%); }
+  to {
+    transform: translateX(-50%);
+  }
 }
 
 /* EVIDENCE CARDS */
@@ -98,7 +103,7 @@
   width: 260px;
   padding: 15px 15px 40px 15px;
   position: relative;
-  box-shadow: 15px 15px 30px rgba(0,0,0,0.4);
+  box-shadow: 15px 15px 30px rgba(0, 0, 0, 0.4);
   flex-shrink: 0;
   transition: all 0.3s ease;
 }
@@ -107,7 +112,7 @@
   transform: scale(1.05) rotate(1deg);
   background: #fff;
   z-index: 10;
-  box-shadow: 20px 20px 40px rgba(0,0,0,0.6);
+  box-shadow: 20px 20px 40px rgba(0, 0, 0, 0.6);
 }
 
 .tape {
@@ -119,7 +124,7 @@
   height: 30px;
   background: rgba(255, 255, 255, 0.3);
   backdrop-filter: blur(4px);
-  border: 1px solid rgba(255,255,255,0.1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .imageBox {
@@ -152,7 +157,11 @@
   margin-bottom: 5px;
 }
 
-.idCode { font-family: monospace; font-size: 0.6rem; color: #666; }
+.idCode {
+  font-family: monospace;
+  font-size: 0.6rem;
+  color: #666;
+}
 
 .statusBadge {
   background: #000;
@@ -192,22 +201,82 @@
 }
 
 .scanningPoint {
-    position: absolute;
-    top: -2px;
-    left: 0;
-    width: 4px;
-    height: 5px;
-    background: #ff4400;
-    box-shadow: 0 0 10px #ff4400;
-    animation: scannerProgress 30s linear infinite;
+  position: absolute;
+  top: -2px;
+  left: 0;
+  width: 4px;
+  height: 5px;
+  background: #ff4400;
+  box-shadow: 0 0 10px #ff4400;
+  animation: scannerProgress 30s linear infinite;
 }
 
 @keyframes scannerProgress {
-    from { left: 0%; }
-    to { left: 100%; }
+  from {
+    left: 0%;
+  }
+
+  to {
+    left: 100%;
+  }
 }
 
 @media (max-width: 768px) {
-  .evidenceCard { width: 200px; }
-  .evidenceRow { animation-duration: 20s; } /* Faster on small screens */
+  .evidenceCard {
+    width: 200px;
+  }
+
+  .evidenceRow {
+    animation-duration: 20s;
+  }
+
+  /* Faster on small screens */
+}
+
+.comingSoonOverlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 10, 10, 0.9);
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(10px);
+}
+
+.comingSoonText {
+  font-family: 'Courier New', monospace;
+  font-size: clamp(2rem, 6vw, 4rem);
+  color: #ff4400;
+  letter-spacing: 12px;
+  font-weight: 900;
+  text-shadow: 0 0 15px rgba(255, 68, 0, 0.5);
+  animation: pulseGlow 2s infinite;
+}
+
+.comingSoonSub {
+  font-family: monospace;
+  font-size: 0.75rem;
+  color: #666;
+  letter-spacing: 5px;
+  margin-top: 15px;
+}
+
+@keyframes pulseGlow {
+
+  0%,
+  100% {
+    opacity: 0.8;
+  }
+
+  50% {
+    opacity: 1;
+    text-shadow: 0 0 25px rgba(255, 68, 0, 0.8);
+  }
+}
+
+/* Ensure container can hold overlay */
+.scrollContainer {
+  position: relative;
 }

@@ -21,10 +21,21 @@ export default function Sponsors() {
     if (el) {
       const onWheel = (e: WheelEvent) => {
         if (e.deltaY === 0) return;
+
+        // Check if we can scroll further horizontally
+        const canScrollLeft = el.scrollLeft > 0;
+        const canScrollRight = el.scrollLeft < (el.scrollWidth - el.clientWidth);
+
+        // If we are at a boundary and trying to scroll further in that direction,
+        // don't preventDefault so the page can scroll vertically.
+        if ((e.deltaY < 0 && !canScrollLeft) || (e.deltaY > 0 && !canScrollRight)) {
+          return;
+        }
+
         e.preventDefault();
         el.scrollTo({
           left: el.scrollLeft + e.deltaY * 3,
-          behavior: 'smooth'
+          behavior: 'auto' // 'auto' is better for performance and feels more responsive during wheel scroll
         });
       };
       el.addEventListener('wheel', onWheel);
@@ -35,7 +46,7 @@ export default function Sponsors() {
   return (
     <section className={styles.wrapper}>
       <div className={styles.fullWidthContainer}>
-        
+
         {/* FIXED HEADER */}
         <div className={styles.folderHeader}>
           <div className={styles.tab}>SECURE_DATABASE // PARTNERS</div>
@@ -50,6 +61,11 @@ export default function Sponsors() {
 
         {/* SCROLLABLE ROW */}
         <div className={styles.scrollContainer} ref={scrollRef}>
+          {/* COMING SOON OVERLAY */}
+          <div className={styles.comingSoonOverlay}>
+            <div className={styles.comingSoonText}>COMING_SOON</div>
+            <div className={styles.comingSoonSub}>PARTNERSHIP_PROTOCOL_PENDING</div>
+          </div>
           <div className={styles.evidenceRow}>
             {allSponsors.map((sponsor, idx) => (
               <div key={idx} className={styles.evidenceCard}>

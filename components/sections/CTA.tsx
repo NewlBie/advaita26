@@ -72,6 +72,17 @@ export default function CTA() {
                           className={`${styles.tactileBtn} ${text === 'REGISTER' ? styles.danger : ''}`}
                           onMouseEnter={() => setActiveBtn(i)}
                           onMouseLeave={() => setActiveBtn(null)}
+                          onClick={() => {
+                            if (text === 'REGISTER') {
+                              window.open('https://unstop.com/college-fests/advaita-2026-international-institute-of-information-technology-iiit-bhubaneswar-438972', '_blank');
+                            } else if (text === 'ACCOMODATION') {
+                              window.open('https://docs.google.com/forms/d/e/1FAIpQLScu9Ld6CgsLqvPzVLmMGp5pU0Adf-FW61XSGdG420F5LdLc2w/viewform?usp=publish-editor', '_blank');
+                            } else if (text === 'RULEBOOK') {
+                              window.open('https://drive.google.com/file/d/1JGwP9PhIooGxukptN2PfK7Mq9iiJ3qLo/view?usp=sharing', '_blank');
+                            } else if (text === 'BROCHURE') {
+                              window.open('https://drive.google.com/file/d/1G-jnqDz2t5FF4HjoyrjFW-BxGWboIXBb/view?usp=sharing', '_blank');
+                            }
+                          }}
                         >
                           <span className={styles.innerShadow} />
                           {text}

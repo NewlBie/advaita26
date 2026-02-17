@@ -62,6 +62,14 @@
   cursor: pointer;
   width: 100%;
   box-sizing: border-box;
+  will-change: transform, opacity;
+  transform: translateZ(0);
+  /* Force GPU acceleration */
+  transition: z-index 0s;
+}
+
+.photoCard:hover {
+  z-index: 50;
 }
 
 .pin {
@@ -91,7 +99,9 @@
   height: 100%;
   object-fit: cover;
   filter: grayscale(0.4) sepia(0.2) contrast(1.1);
-  transition: 0.3s ease;
+  transition: filter 0.3s ease;
+  will-change: filter;
+  transform: translateZ(0);
 }
 
 .photoCard:hover .photo {
