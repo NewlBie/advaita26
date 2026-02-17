@@ -64,7 +64,7 @@ export default function MusicPlayer() {
     useEffect(() => {
         PLAYLIST.forEach(track => {
             if (track.id !== 'scene3') {
-                registerMusic(track.id, track.src, 0.8);
+                registerMusic(track.id, track.src, 0.8, false);
             }
             setTrackEndedCallback(track.id, () => changeTrack('next'));
         });

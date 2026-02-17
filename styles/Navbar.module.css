@@ -26,7 +26,7 @@
 
   /* Rotting Wallpaper Texture */
   background-color: var(--wall-dark);
-  background-image: 
+  background-image:
     radial-gradient(circle at 50% 50%, transparent 20%, #000 120%),
     radial-gradient(circle at 10% 10%, rgba(60, 20, 20, 0.1) 10%, transparent 20%),
     url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.08'/%3E%3C/svg%3E");
@@ -45,7 +45,7 @@
 
 /* ---------- LOGO ---------- */
 .logo {
-  font-family: 'Stranger Things Outline', serif;
+  font-family: var(--font-stranger-outlined), serif;
   font-size: 2rem;
   color: #888;
   text-transform: uppercase;
@@ -54,8 +54,10 @@
   text-shadow: 2px 2px 0px #000;
   opacity: 0.8;
   transition: all 0.3s;
-  z-index: 1002; /* Always on top */
-  flex-shrink: 0; /* Prevents squashing */
+  z-index: 1002;
+  /* Always on top */
+  flex-shrink: 0;
+  /* Prevents squashing */
 }
 
 .logo:hover {
@@ -88,7 +90,7 @@
   transform: rotate(-0.5deg);
   z-index: 0;
   pointer-events: none;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.8);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
 }
 
 .linkWrapper {
@@ -107,7 +109,7 @@
   border-radius: 50% 50% 40% 40%;
   background: var(--bulb-off);
   transition: background 0.1s, box-shadow 0.1s;
-  box-shadow: inset -2px -2px 5px rgba(0,0,0,0.8);
+  box-shadow: inset -2px -2px 5px rgba(0, 0, 0, 0.8);
   margin-bottom: 12px;
   position: relative;
 }
@@ -126,13 +128,13 @@
 .link {
   background: transparent;
   border: none;
-  font-family: 'Brush Script MT', 'Courier New', cursive; 
-  font-size: 1.2rem;
-  font-weight: bold;
+  font-family: var(--font-inter), system-ui, sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
   color: #555;
   cursor: pointer;
   transition: color 0.2s;
-  text-shadow: 1px 1px 0 rgba(255,255,255,0.05);
+  text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.05);
   text-transform: uppercase;
 }
 
@@ -149,13 +151,21 @@
 }
 
 @keyframes bulbFlicker {
-  0% { opacity: 1; transform: scale(1); }
-  100% { opacity: 0.8; transform: scale(0.95); }
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  100% {
+    opacity: 0.8;
+    transform: scale(0.95);
+  }
 }
 
 /* ---------- MOBILE HAMBURGER (The Pull Cord) ---------- */
 .hamburger {
-  display: none; /* Hidden on desktop */
+  display: none;
+  /* Hidden on desktop */
   background: transparent;
   border: none;
   cursor: pointer;
@@ -170,20 +180,28 @@
 }
 
 @keyframes cordSwing {
-  0%, 100% { transform: rotate(1deg); }
-  50% { transform: rotate(-1deg); }
+
+  0%,
+  100% {
+    transform: rotate(1deg);
+  }
+
+  50% {
+    transform: rotate(-1deg);
+  }
 }
 
 .pullString {
   position: absolute;
-  top: -20px; /* Starts inside the navbar header */
+  top: -20px;
+  /* Starts inside the navbar header */
   left: 50%;
   width: 2px;
   height: 50px;
   background: #bbb;
   transform: translateX(-50%);
   transition: height 0.2s cubic-bezier(0.5, 1.5, 0.5, 1);
-  box-shadow: 1px 0 2px rgba(0,0,0,0.5);
+  box-shadow: 1px 0 2px rgba(0, 0, 0, 0.5);
 }
 
 .pullKnob {
@@ -202,8 +220,10 @@
 
 /* Pull Interaction */
 .hamburger:active .pullString {
-  height: 65px; /* Stretch */
+  height: 65px;
+  /* Stretch */
 }
+
 .hamburger:active .pullKnob {
   transform: translateX(-50%) translateY(15px);
 }
@@ -211,25 +231,27 @@
 /* ---------- MOBILE MENU (Fixed Layering) ---------- */
 .mobileMenu {
   position: fixed;
-  inset: 0; /* Covers full viewport */
+  inset: 0;
+  /* Covers full viewport */
   background: #080808;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 3rem;
-  
+
   /* Z-INDEX LOWER THAN NAVBAR so cord is clickable */
-  z-index: 1999; 
-  
+  z-index: 1999;
+
   opacity: 0;
   visibility: hidden;
-  transform: translateY(-20px); /* Subtle drift up */
+  transform: translateY(-20px);
+  /* Subtle drift up */
   transition: all 0.4s ease-in-out;
   pointer-events: none;
-  
+
   /* Texture */
-  background-image: radial-gradient(rgba(255,255,255,0.05) 1px, transparent 1px);
+  background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
   background-size: 30px 30px;
 }
 
@@ -239,8 +261,9 @@
   transform: translateY(0);
   pointer-events: all;
 }
+
 .mobileLink {
-  font-family: 'Stranger Things Outline', serif;
+  font-family: var(--font-stranger-outlined), serif;
   font-size: 2.5rem;
   color: #666;
   background: transparent;
@@ -265,26 +288,41 @@
 }
 
 @keyframes pulseHint {
-  0%, 100% { opacity: 0.5; }
-  50% { opacity: 1; }
+
+  0%,
+  100% {
+    opacity: 0.5;
+  }
+
+  50% {
+    opacity: 1;
+  }
 }
 
 /* ---------- RESPONSIVENESS ---------- */
 /* Triggers mobile view sooner to prevent overlap */
 @media (max-width: 900px) {
-  .links { display: none; }
-  .hamburger { display: block; }
-  
-  .navbar { 
-    height: 80px; 
-    padding: 0 1rem;
-    justify-content: space-between; /* Ensures Logo Left, Cord Right */
+  .links {
+    display: none;
   }
-  
+
+  .hamburger {
+    display: block;
+  }
+
+  .navbar {
+    height: 80px;
+    padding: 0 1rem;
+    justify-content: space-between;
+    /* Ensures Logo Left, Cord Right */
+  }
+
   .container {
     padding: 0 1rem;
     width: 100%;
   }
 
-  .logo { font-size: 1.6rem; }
+  .logo {
+    font-size: 1.6rem;
+  }
 }

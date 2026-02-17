@@ -75,7 +75,7 @@ export default function Hero() {
           <div className={styles.statsGrid}>
             <div className={styles.statBox}>
               <div className={styles.statLabel}>TEMPORAL WINDOW</div>
-              <div className={styles.statValue}>MAR 26 - 29</div>
+              <div className={styles.statValue}>MAR 12 - 16</div>
             </div>
             <div className={styles.statBox}>
               <div className={styles.statLabel}>THREAT LEVEL</div>
@@ -83,7 +83,7 @@ export default function Hero() {
             </div>
             <div className={styles.statBox}>
               <div className={styles.statLabel}>LOCATION</div>
-              <div className={styles.statValue}>SECTOR_IIITB</div>
+              <div className={styles.statValue}>IIIT_BHUBANESWAR</div>
             </div>
           </div>
 

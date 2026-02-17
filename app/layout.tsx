@@ -14,9 +14,14 @@ const playfair = Playfair_Display({
 });
 
 export const metadata = {
-  title: 'Cinematic Parallax',
-  description: '3:2 cinematic parallax landing',
+  title: 'ADVAITA 2026',
+  description: 'The Official Tech-Cultural Fest of IIIT Bhubaneswar',
+  icons: {
+    icon: '/assets/favicon.png',
+  },
 };
+
+import AccessibilityProvider from '@/components/core/internal/AccessibilityProvider';
 
 export default function RootLayout({
   children,
@@ -25,7 +30,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${inter.variable} ${playfair.variable}`}>
-      <body>{children}</body>
+      <body>
+        <AccessibilityProvider>
+          {children}
+        </AccessibilityProvider>
+      </body>
     </html>
   );
 }
