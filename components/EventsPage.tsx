@@ -66,7 +66,7 @@ export default function EventsPage() {
                   className={styles.actionBtn}
                   onClick={() => window.open(event.link, '_blank')}
                 >
-                  <span className={styles.btnLabel}>ACCESS FILE</span>
+                  <span className={styles.btnLabel}>REGISTER</span>
                   <div className={styles.btnGlow} />
                 </button>
               </div>

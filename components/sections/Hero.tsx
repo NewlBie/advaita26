@@ -99,7 +99,7 @@ export default function Hero() {
               className={styles.secondaryBtn}
               onClick={() => window.open('https://unstop.com/college-fests/advaita-2026-international-institute-of-information-technology-iiit-bhubaneswar-438972', '_blank')}
             >
-              ACCESS FILES
+              REGISTER
             </button>
           </div>
         </div>
