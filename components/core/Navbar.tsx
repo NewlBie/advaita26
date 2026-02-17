@@ -78,19 +78,23 @@ export default function Navbar() {
                     <div className={styles.links}>
                         <div className={styles.linkWrapper}>
                             <div className={styles.bulb} />
+                            <div className={styles.lightCone} />
                             {/* LINKED TO EVENTS PAGE */}
                             <button onClick={() => handleNavClick('events', true)} className={styles.link}>Events</button>
                         </div>
                         <div className={styles.linkWrapper}>
                             <div className={styles.bulb} />
+                            <div className={styles.lightCone} />
                             <button onClick={() => handleNavClick('merch')} className={styles.link}>Merch</button>
                         </div>
                         <div className={styles.linkWrapper}>
                             <div className={styles.bulb} />
+                            <div className={styles.lightCone} />
                             <button onClick={() => handleNavClick('passes')} className={styles.link}>Passes</button>
                         </div>
                         <div className={styles.linkWrapper}>
                             <div className={styles.bulb} />
+                            <div className={styles.lightCone} />
                             <button onClick={() => handleNavClick('register')} className={styles.link}>Register</button>
                         </div>
                     </div>
