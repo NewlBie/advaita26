@@ -16,7 +16,7 @@ export default function Hero() {
       const { clientX, clientY } = e;
       const xPct = (clientX / window.innerWidth - 0.5) * 20;
       const yPct = (clientY / window.innerHeight - 0.5) * 20;
-      
+
       sectionRef.current.style.setProperty('--mx', `${clientX}px`);
       sectionRef.current.style.setProperty('--my', `${clientY}px`);
       sectionRef.current.style.setProperty('--rx', `${xPct}px`);
@@ -47,7 +47,7 @@ export default function Hero() {
       <div className={styles.magneticRift} />
       <div className={styles.dynamicGlow} />
       <div className={styles.ashOverlay} />
-      
+
       {/* CRT SCANLINES */}
       <div className={styles.crtContainer}>
         <div className={styles.scanlines} />
@@ -55,7 +55,7 @@ export default function Hero() {
 
       <div className={styles.container}>
         <div className={styles.headerTerminal}>
-          <span className={styles.statusDot} /> 
+          <span className={styles.statusDot} />
           ACCESSING IIITB_SERVER // PORTAL_STATUS: OPENING
         </div>
 
@@ -88,11 +88,17 @@ export default function Hero() {
           </div>
 
           <div className={styles.buttonRack}>
-            <button className={styles.primaryBtn}>
+            <button
+              className={styles.primaryBtn}
+              onClick={() => window.open('https://konfhub.com/advaita2026', '_blank')}
+            >
               <span className={styles.btnText}>ENTER THE GATE</span>
               <div className={styles.btnReflex} />
             </button>
-            <button className={styles.secondaryBtn}>
+            <button
+              className={styles.secondaryBtn}
+              onClick={() => window.open('https://unstop.com/college-fests/advaita-2026-international-institute-of-information-technology-iiit-bhubaneswar-438972', '_blank')}
+            >
               ACCESS FILES
             </button>
           </div>

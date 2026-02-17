@@ -32,14 +32,14 @@ export default function CTA() {
     <section className={styles.wrapper}>
       {/* Background Dust/Ash Particles */}
       <div className={styles.ashOverlay} />
-      
+
       <div className={styles.cabinetContainer} ref={containerRef}>
         <div className={styles.bezel}>
           <div className={styles.screen}>
             {/* CRT VFX */}
             <div className={styles.scanlines} />
             <div className={styles.vhsGlitch} />
-            
+
             <div className={styles.content}>
               <div className={styles.terminalHeader}>
                 <div className={styles.blinkingLight} />
@@ -68,10 +68,21 @@ export default function CTA() {
                     {['ACCOMODATION', 'RULEBOOK', 'BROCHURE', 'REGISTER'].map((text, i) => (
                       <div key={i} className={styles.btnHousing}>
                         <label className={styles.btnLabel}>FUNC_{i + 1}</label>
-                        <button 
+                        <button
                           className={`${styles.tactileBtn} ${text === 'REGISTER' ? styles.danger : ''}`}
                           onMouseEnter={() => setActiveBtn(i)}
                           onMouseLeave={() => setActiveBtn(null)}
+                          onClick={() => {
+                            if (text === 'REGISTER') {
+                              window.open('https://unstop.com/college-fests/advaita-2026-international-institute-of-information-technology-iiit-bhubaneswar-438972', '_blank');
+                            } else if (text === 'ACCOMODATION') {
+                              window.open('https://docs.google.com/forms/d/e/1FAIpQLScu9Ld6CgsLqvPzVLmMGp5pU0Adf-FW61XSGdG420F5LdLc2w/viewform?usp=publish-editor', '_blank');
+                            } else if (text === 'RULEBOOK') {
+                              window.open('https://drive.google.com/file/d/1JGwP9PhIooGxukptN2PfK7Mq9iiJ3qLo/view?usp=sharing', '_blank');
+                            } else if (text === 'BROCHURE') {
+                              window.open('https://drive.google.com/file/d/1G-jnqDz2t5FF4HjoyrjFW-BxGWboIXBb/view?usp=sharing', '_blank');
+                            }
+                          }}
                         >
                           <span className={styles.innerShadow} />
                           {text}
@@ -79,7 +90,7 @@ export default function CTA() {
                       </div>
                     ))}
                   </div>
-                  
+
                   {/* Decorative Elements */}
                   <div className={styles.ventilation}>
                     <div className={styles.grill} />
@@ -90,7 +101,9 @@ export default function CTA() {
 
               <div className={styles.bottomBar}>
                 <div className={styles.warningTicker}>
-                  CAUTION: DIMENSIONAL GATE STABILITY AT 14%... PROCEED WITH EXTREME VIGILANCE... 
+                  <div className={styles.tickerContent}>
+                    CAUTION: DIMENSIONAL GATE STABILITY AT 14%... PROCEED WITH EXTREME VIGILANCE... CAUTION: DIMENSIONAL GATE STABILITY AT 14%... PROCEED WITH EXTREME VIGILANCE...
+                  </div>
                 </div>
               </div>
             </div>

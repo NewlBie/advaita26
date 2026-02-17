@@ -18,11 +18,25 @@ export default function Navbar() {
     }, []);
 
     const handleNavClick = (id: string, isExternal: boolean = false) => {
-        setMenuOpen(false); 
+        setMenuOpen(false);
 
-        // If it's an external page (like the Events page)
         if (isExternal) {
             router.push(`/${id}`);
+            return;
+        }
+
+        if (id === 'merch') {
+            window.open('https://docs.google.com/forms/d/e/1FAIpQLSdLOLY4iigPmj6h6XjoPWZPJX4kaaJRbVy6mJ4PVjqDd6giuA/viewform?usp=publish-editor', '_blank');
+            return;
+        }
+
+        if (id === 'passes') {
+            window.open('https://konfhub.com/advaita2026', '_blank');
+            return;
+        }
+
+        if (id === 'register') {
+            window.open('https://unstop.com/college-fests/advaita-2026-international-institute-of-information-technology-iiit-bhubaneswar-438972', '_blank');
             return;
         }
 
@@ -34,21 +48,22 @@ export default function Navbar() {
             }
             const el = document.getElementById(id);
             if (el) {
-                const offset = 100; 
+                const offset = 100;
                 const top = el.getBoundingClientRect().top + window.pageYOffset - offset;
                 window.scrollTo({ top, behavior: "smooth" });
             }
         } else {
             // If we're on /events and click a home link, go back home first
-            router.push(`/#${id}`);
+            // We adding ?skip=true to bypass the intro sequence
+            router.push(`/?skip=true#${id}`);
         }
     };
 
     return (
         <>
-            <nav 
-                className={styles.navbar} 
-                style={{ 
+            <nav
+                className={styles.navbar}
+                style={{
                     marginTop: scrolled ? '-5px' : '0px',
                     backgroundColor: menuOpen ? 'transparent' : undefined,
                     borderBottom: scrolled ? '2px solid #e31212' : 'none' // Added neon red glow on scroll
@@ -81,7 +96,7 @@ export default function Navbar() {
                     </div>
 
                     {/* MOBILE PULL CORD */}
-                    <button 
+                    <button
                         className={styles.hamburger}
                         onClick={() => setMenuOpen(!menuOpen)}
                         aria-label="Toggle Menu"
@@ -97,8 +112,9 @@ export default function Navbar() {
                 <button onClick={() => handleNavClick('top')} className={styles.mobileLink}>Home</button>
                 <button onClick={() => handleNavClick('events', true)} className={styles.mobileLink}>The Events</button>
                 <button onClick={() => handleNavClick('merch')} className={styles.mobileLink}>Merch</button>
+                <button onClick={() => handleNavClick('passes')} className={styles.mobileLink}>Passes</button>
                 <button onClick={() => handleNavClick('register')} className={styles.mobileLink}>Register</button>
-                
+
                 <div className={styles.closeHint}>
                     PULL THE CORD TO CLOSE
                 </div>

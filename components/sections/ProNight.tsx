@@ -42,7 +42,7 @@ export default function ProNight() {
   return (
     <section className={styles.wrapper}>
       <div className={styles.scanlineOverlay} />
-      
+
       <div className={styles.container}>
         {/* SIDE NAV - SLIDE SELECTOR */}
         <div className={styles.sidebar}>
@@ -51,7 +51,7 @@ export default function ProNight() {
           </div>
           <div className={styles.artistList}>
             {performances.map((perf, index) => (
-              <button 
+              <button
                 key={perf.id}
                 className={`${styles.navBtn} ${index === activeIndex ? styles.activeNav : ''}`}
                 onClick={() => setActiveIndex(index)}
@@ -68,8 +68,14 @@ export default function ProNight() {
 
         {/* MAIN VIEWER - THE SLIDE PROJECTOR */}
         <div className={styles.viewer}>
+          {/* COMING SOON OVERLAY */}
+          <div className={styles.comingSoonOverlay}>
+            <div className={styles.comingSoonText}>COMING_SOON</div>
+            <div className={styles.comingSoonSub}>LEVEL_4_CLEARANCE_REQUIRED</div>
+          </div>
+
           <AnimatePresence mode="wait">
-            <motion.div 
+            <motion.div
               key={activeIndex}
               initial={{ opacity: 0, scale: 0.95, filter: 'blur(10px)' }}
               animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
@@ -92,7 +98,7 @@ export default function ProNight() {
               <div className={styles.infoPanel}>
                 <div className={styles.typeTag}>{performances[activeIndex].type}</div>
                 <h2 className={styles.artistTitle}>{performances[activeIndex].artist}</h2>
-                
+
                 <div className={styles.detailsGrid}>
                   <div className={styles.detailItem}>
                     <label>DATE_OBSERVED</label>

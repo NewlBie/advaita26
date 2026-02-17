@@ -79,7 +79,8 @@
 }
 
 .imageContainer {
-  height: 220px;
+  aspect-ratio: 1 / 1;
+  width: 100%;
   position: relative;
   overflow: hidden;
   border-bottom: 1px solid #1a1a1a;
