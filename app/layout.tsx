@@ -14,7 +14,7 @@ const playfair = Playfair_Display({
 });
 
 export const metadata = {
-  title: 'Cinematic Parallax',
+  title: 'Advaita 2026',
   description: '3:2 cinematic parallax landing',
 };
 
