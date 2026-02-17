@@ -75,7 +75,7 @@ export default function Hero() {
           <div className={styles.statsGrid}>
             <div className={styles.statBox}>
               <div className={styles.statLabel}>TEMPORAL WINDOW</div>
-              <div className={styles.statValue}>MAR 26 - 29</div>
+              <div className={styles.statValue}>MAR 12 - 15</div>
             </div>
             <div className={styles.statBox}>
               <div className={styles.statLabel}>THREAT LEVEL</div>
