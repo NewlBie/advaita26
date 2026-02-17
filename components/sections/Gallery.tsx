@@ -3,7 +3,10 @@ import { motion } from 'framer-motion';
 import Image from 'next/image';
 import styles from '@/styles/sections/Gallery.module.css';
 
-const images = [
+/**
+ * GALLERY_ASSETS - Collection of archival photographs for the exhibition.
+ */
+const GALLERY_ASSETS = [
   { id: 1, src: '/assets/gallery/DSC_1475.jpg', caption: 'SUBJECT_DEPT_01', tilt: -5 },
   { id: 2, src: '/assets/gallery/DSC_9681.jpg', caption: 'FIELD_LOG_MAR_26', tilt: 3 },
   { id: 3, src: '/assets/gallery/IMG_6564.jpg', caption: 'VOID_ENTRY_EXP', tilt: -2 },
@@ -24,7 +27,7 @@ export default function Gallery() {
       </div>
 
       <div className={styles.photoBoard}>
-        {images.map((img) => (
+        {GALLERY_ASSETS.map((img) => (
           <motion.div
             key={img.id}
             className={styles.photoCard}

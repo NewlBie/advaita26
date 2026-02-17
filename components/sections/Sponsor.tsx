@@ -2,7 +2,10 @@
 import { useEffect, useRef } from 'react';
 import styles from '@/styles/sections/Sponsor.module.css';
 
-const allSponsors = [
+/**
+ * PARTNER_REGISTRY - List of authorized organizations and their status.
+ */
+const PARTNER_REGISTRY = [
   { name: "Google", logo: "/sponsors/google.png", status: "TITLE_ANOMALY" },
   { name: "Microsoft", logo: "/sponsors/ms.png", status: "POWER_CORE" },
   { name: "Intel", logo: "/sponsors/intel.png", status: "POWER_CORE" },
@@ -67,7 +70,7 @@ export default function Sponsors() {
             <div className={styles.comingSoonSub}>PARTNERSHIP_PROTOCOL_PENDING</div>
           </div>
           <div className={styles.evidenceRow}>
-            {allSponsors.map((sponsor, idx) => (
+            {PARTNER_REGISTRY.map((sponsor, idx) => (
               <div key={idx} className={styles.evidenceCard}>
                 <div className={styles.tape} />
                 <div className={styles.imageBox}>

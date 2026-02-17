@@ -15,17 +15,21 @@ export default function CTA() {
   const [activeBtn, setActiveBtn] = useState<number | null>(null);
 
   useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
+    /**
+     * updateCabinetPerspective - Maps mouse coordinates to cabinet rotation.
+     */
+    const updateCabinetPerspective = (e: MouseEvent) => {
       if (!containerRef.current) return;
       const { clientX, clientY } = e;
-      const x = (clientX / window.innerWidth - 0.5) * 12;
-      const y = (clientY / window.innerHeight - 0.5) * 12;
-      containerRef.current.style.setProperty('--rx', `${-y}deg`);
-      containerRef.current.style.setProperty('--ry', `${x}deg`);
+      const xOffset = (clientX / window.innerWidth - 0.5) * 12;
+      const yOffset = (clientY / window.innerHeight - 0.5) * 12;
+
+      containerRef.current.style.setProperty('--rx', `${-yOffset}deg`);
+      containerRef.current.style.setProperty('--ry', `${xOffset}deg`);
     };
 
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
+    window.addEventListener('mousemove', updateCabinetPerspective);
+    return () => window.removeEventListener('mousemove', updateCabinetPerspective);
   }, []);
 
   return (

@@ -1,3 +1,15 @@
+/**
+ * fetchEventById - Utility to find specific event data.
+ * @param id - The unique event identifier.
+ * @returns The matching event object or undefined.
+ */
+export const fetchEventById = (id: string): Event | undefined => {
+    return events.find(e => e.id === id);
+};
+
+/**
+ * Interface defining the structure of an Event anomaly.
+ */
 export interface Event {
     id: string;
     title: string;
@@ -7,9 +19,12 @@ export interface Event {
     description: string;
     image: string;
     link: string;
-    isCorrupted?: boolean; // For the "Upside Down" effect
+    isCorrupted?: boolean;
 }
 
+/**
+ * Central event registry for ADVAITA 2026.
+ */
 export const events: Event[] = [
     {
         id: 'EV-001',
