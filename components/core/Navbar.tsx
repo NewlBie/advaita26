@@ -2,14 +2,14 @@
 import { useEffect, useState } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import styles from '@/styles/Navbar.module.css';
-import EasterEgg from './EasterEgg';
+import { useAccessibility } from './internal/AccessibilityProvider';
 
 export default function Navbar() {
     const [scrolled, setScrolled] = useState(false);
     const [menuOpen, setMenuOpen] = useState(false);
     const router = useRouter();
     const pathname = usePathname();
-    const [showEasterEgg, setShowEasterEgg] = useState(false);
+    const { toggleActive } = useAccessibility();
     const [timerId, setTimerId] = useState<NodeJS.Timeout | null>(null);
     const [isLongPress, setIsLongPress] = useState(false);
 
@@ -66,7 +66,7 @@ export default function Navbar() {
     const startLongPress = () => {
         setIsLongPress(false);
         const timer = setTimeout(() => {
-            setShowEasterEgg(true);
+            toggleActive(true);
             setMenuOpen(false);
             setIsLongPress(true);
         }, 3000);
@@ -172,8 +172,6 @@ export default function Navbar() {
                     ↑ PULL THE CORD TO CLOSE ↑
                 </div>
             </div>
-
-            {showEasterEgg && <EasterEgg onClose={() => setShowEasterEgg(false)} />}
         </>
     );
 }

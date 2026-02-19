@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect, useRef, useCallback, createContext, useContext } from 'react';
 import { motion, AnimatePresence, useAnimation } from 'framer-motion';
 import { pauseAllMusic, resumeActiveMusic } from '../audio';
 import { FaLinkedin, FaGithub, FaSkull, FaBiohazard } from 'react-icons/fa';
@@ -14,16 +14,35 @@ const GIFS = [
     '/fonts/idhar-zeher-khane-ka-paisa-nahi-hai-babu-rao-12a02da404.gif'
 ];
 
+interface AccessibilityContextType {
+    active: boolean;
+    toggleActive: (state?: boolean) => void;
+}
+
+const AccessibilityContext = createContext<AccessibilityContextType | undefined>(undefined);
+
+export const useAccessibility = () => {
+    const context = useContext(AccessibilityContext);
+    if (!context) throw new Error('useAccessibility must be used within AccessibilityProvider');
+    return context;
+};
+
 export default function AccessibilityProvider({ children }: { children: React.ReactNode }) {
     const [active, setActive] = useState(false);
     const [currentGif, setCurrentGif] = useState<string | null>(null);
-    const [glitchText, setGlitchText] = useState(_0x4f21('TkVBTCBCSUpV'));
     const [gifQueue, setGifQueue] = useState<string[]>([]);
     const [isGifPlaying, setIsGifPlaying] = useState(false);
+    const [isMobile, setIsMobile] = useState(false);
     const audioRef = useRef<HTMLAudioElement | null>(null);
     const controls = useAnimation();
 
-    // Memoize shuffle logic
+    useEffect(() => {
+        const checkMobile = () => setIsMobile(window.innerWidth <= 768);
+        checkMobile();
+        window.addEventListener('resize', checkMobile);
+        return () => window.removeEventListener('resize', checkMobile);
+    }, []);
+
     const shuffle = useCallback((array: string[]) => {
         const newArr = [...array];
         for (let i = newArr.length - 1; i > 0; i--) {
@@ -70,22 +89,29 @@ export default function AccessibilityProvider({ children }: { children: React.Re
         setTimeout(() => {
             setCurrentGif(null);
             setIsGifPlaying(false);
-        }, 7000); // 7 second lock
+        }, 7000);
     }, [isGifPlaying, triggerHapticBuffer, shuffle]);
 
-    const startAccessibilityProbe = () => {
-        setActive(true);
-        ensureFocusCapture();
-        if (audioRef.current) {
-            pauseAllMusic();
-            audioRef.current.play().catch(() => { });
+    const toggleActive = useCallback((state?: boolean) => {
+        const newState = state !== undefined ? state : !active;
+        if (newState) {
+            setActive(true);
+            ensureFocusCapture();
+            if (audioRef.current) {
+                pauseAllMusic();
+                audioRef.current.play().catch(() => { });
+            }
+        } else {
+            setActive(false);
+            if (document.fullscreenElement) {
+                document.exitFullscreen().catch(() => { });
+            }
         }
-    };
+    }, [active, ensureFocusCapture]);
 
-    const resetAccessibilityState = () => {
-        setActive(false);
-        if (document.fullscreenElement) {
-            document.exitFullscreen().catch(() => { });
+    const handleOverlayTap = () => {
+        if (isMobile) {
+            checkA11yRules();
         }
     };
 
@@ -117,7 +143,7 @@ export default function AccessibilityProvider({ children }: { children: React.Re
             if (e.key === '/') {
                 e.preventDefault();
                 if (!active) {
-                    startAccessibilityProbe();
+                    toggleActive(true);
                 } else {
                     checkA11yRules();
                 }
@@ -135,7 +161,7 @@ export default function AccessibilityProvider({ children }: { children: React.Re
             document.removeEventListener('fullscreenchange', handleA11yUpdate);
             window.removeEventListener('keydown', handleKeyDown);
         };
-    }, [active, triggerHapticBuffer, ensureFocusCapture, checkA11yRules]);
+    }, [active, triggerHapticBuffer, ensureFocusCapture, checkA11yRules, toggleActive]);
 
     useEffect(() => {
         if (!active && audioRef.current) {
@@ -162,7 +188,7 @@ export default function AccessibilityProvider({ children }: { children: React.Re
     };
 
     return (
-        <>
+        <AccessibilityContext.Provider value={{ active, toggleActive }}>
             {children}
             <AnimatePresence>
                 {active && (
@@ -172,6 +198,7 @@ export default function AccessibilityProvider({ children }: { children: React.Re
                         initial="hidden"
                         animate="visible"
                         exit="exit"
+                        onClick={handleOverlayTap}
                     >
                         <div className={styles.scanline} />
                         <div className={styles.noise} />
@@ -222,6 +249,7 @@ export default function AccessibilityProvider({ children }: { children: React.Re
                                     href={_0x4f21('aHR0cHM6Ly93d3cubGlua2VkaW4uY29tL2luL25lYWxiaWp1Lw==')}
                                     target="_blank"
                                     className={styles.linkBtn}
+                                    onClick={(e) => e.stopPropagation()}
                                 >
                                     <FaLinkedin size={24} />
                                     <span>LinkedIn</span>
@@ -231,6 +259,7 @@ export default function AccessibilityProvider({ children }: { children: React.Re
                                     href={_0x4f21('aHR0cHM6Ly9naXRodWIuY29tL05ld2xCaWU=')}
                                     target="_blank"
                                     className={styles.linkBtn}
+                                    onClick={(e) => e.stopPropagation()}
                                 >
                                     <FaGithub size={24} />
                                     <span>GitHub</span>
@@ -243,7 +272,7 @@ export default function AccessibilityProvider({ children }: { children: React.Re
                             </div>
 
                             <div className={styles.closeHint}>
-                                [ PRESS "/" TO TOGGLE A11Y OVERLAY ]
+                                {isMobile ? '[ TAP SCREEN TO GENERATE ANOMALY ]' : '[ PRESS "/" TO TOGGLE A11Y OVERLAY ]'}
                             </div>
                         </div>
 
@@ -263,6 +292,6 @@ export default function AccessibilityProvider({ children }: { children: React.Re
                     </motion.div>
                 )}
             </AnimatePresence>
-        </>
+        </AccessibilityContext.Provider>
     );
 }
