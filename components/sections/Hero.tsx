@@ -79,7 +79,7 @@ export default function Hero() {
           <div className={styles.statsGrid}>
             <div className={styles.statBox}>
               <div className={styles.statLabel}>TEMPORAL WINDOW</div>
-              <div className={styles.statValue}>MAR 12 - 16</div>
+              <div className={styles.statValue}>MAR 12 - 15</div>
             </div>
             <div className={styles.statBox}>
               <div className={styles.statLabel}>THREAT LEVEL</div>
@@ -87,7 +87,7 @@ export default function Hero() {
             </div>
             <div className={styles.statBox}>
               <div className={styles.statLabel}>LOCATION</div>
-              <div className={styles.statValue}>IIIT_BHUBANESWAR</div>
+              <div className={styles.statValue}>IIIT BHUBANESWAR</div>
             </div>
           </div>
 
@@ -103,7 +103,7 @@ export default function Hero() {
               className={styles.secondaryBtn}
               onClick={() => window.open('https://unstop.com/college-fests/advaita-2026-international-institute-of-information-technology-iiit-bhubaneswar-438972', '_blank')}
             >
-              ACCESS FILES
+              REGISTER
             </button>
           </div>
         </div>

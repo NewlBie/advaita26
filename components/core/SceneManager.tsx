@@ -33,7 +33,6 @@ export default function SceneManager({ skipIntro = false }: SceneManagerProps) {
     // Phase 3: All scenes (Scene 3) visible
     const [activePhase, setActivePhase] = useState(skipIntro ? 3 : 1);
     const introRemovedRef = useRef(false);
-
     /* ---------- HANDLE ENTER WEBSITE ---------- */
     const handleEnterWebsite = () => {
         if (introRemovedRef.current) return;
@@ -273,6 +272,8 @@ export default function SceneManager({ skipIntro = false }: SceneManagerProps) {
 
     /* ---------- CLICK ON COLLEGE (SCENE ONE) ---------- */
     const handleActivate = () => {
+        if(activePhase==3)
+            return;
         unlockAudio();
 
         // Immediate SFX
