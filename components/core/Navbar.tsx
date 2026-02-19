@@ -2,12 +2,16 @@
 import { useEffect, useState } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import styles from '@/styles/Navbar.module.css';
+import EasterEgg from './EasterEgg';
 
 export default function Navbar() {
     const [scrolled, setScrolled] = useState(false);
     const [menuOpen, setMenuOpen] = useState(false);
     const router = useRouter();
     const pathname = usePathname();
+    const [showEasterEgg, setShowEasterEgg] = useState(false);
+    const [timerId, setTimerId] = useState<NodeJS.Timeout | null>(null);
+    const [isLongPress, setIsLongPress] = useState(false);
 
     useEffect(() => {
         const handleScroll = () => {
@@ -59,6 +63,23 @@ export default function Navbar() {
         }
     };
 
+    const startLongPress = () => {
+        setIsLongPress(false);
+        const timer = setTimeout(() => {
+            setShowEasterEgg(true);
+            setMenuOpen(false);
+            setIsLongPress(true);
+        }, 3000);
+        setTimerId(timer);
+    };
+
+    const endLongPress = () => {
+        if (timerId) {
+            clearTimeout(timerId);
+            setTimerId(null);
+        }
+    };
+
     return (
         <>
             <nav
@@ -99,14 +120,42 @@ export default function Navbar() {
                         </div>
                     </div>
 
-                    {/* MOBILE PULL CORD */}
+                    {/* MOBILE PULL CORD — realistic chain */}
                     <button
                         className={styles.hamburger}
-                        onClick={() => setMenuOpen(!menuOpen)}
+                        onClick={() => {
+                            if (!isLongPress) {
+                                setMenuOpen(!menuOpen);
+                            }
+                            setIsLongPress(false);
+                        }}
+                        onPointerDown={startLongPress}
+                        onPointerUp={endLongPress}
+                        onPointerLeave={endLongPress}
                         aria-label="Toggle Menu"
                     >
-                        <div className={styles.pullString} />
-                        <div className={styles.pullKnob} />
+                        {/* Ceiling mount bracket */}
+                        <div className={styles.mountBracket} />
+                        {/* Ball chain */}
+                        <div className={styles.chainSegment}>
+                            <div className={styles.chainBead} />
+                            <div className={styles.chainLink} />
+                            <div className={styles.chainBead} />
+                            <div className={styles.chainLink} />
+                            <div className={styles.chainBead} />
+                            <div className={styles.chainLink} />
+                            <div className={styles.chainBead} />
+                            <div className={styles.chainLink} />
+                            <div className={styles.chainBead} />
+                        </div>
+                        {/* Connector ring */}
+                        <div className={styles.connectorRing} />
+                        {/* Acorn pull handle */}
+                        <div className={styles.pullHandle}>
+                            <div className={styles.handleCap} />
+                            <div className={styles.handleBody} />
+                        </div>
+                        {!menuOpen && <span className={styles.tapHint}>tap</span>}
                     </button>
                 </div>
             </nav>
@@ -120,9 +169,11 @@ export default function Navbar() {
                 <button onClick={() => handleNavClick('register')} className={styles.mobileLink}>Register</button>
 
                 <div className={styles.closeHint}>
-                    PULL THE CORD TO CLOSE
+                    ↑ PULL THE CORD TO CLOSE ↑
                 </div>
             </div>
+
+            {showEasterEgg && <EasterEgg onClose={() => setShowEasterEgg(false)} />}
         </>
     );
 }
