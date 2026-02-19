@@ -3,15 +3,18 @@ import { motion } from 'framer-motion';
 import Image from 'next/image';
 import styles from '@/styles/sections/Gallery.module.css';
 
-const images = [
-  { id: 1, src: '/assets/gallery/DSC_1475.jpg', caption: 'SUBJECT_DEPT_01', tilt: -5 },
+/**
+ * GALLERY_ASSETS - Collection of archival photographs for the exhibition.
+ */
+const GALLERY_ASSETS = [
+  { id: 1, src: '/assets/gallery/DSC_1475.jpg', caption: 'OS_CORE_UNSTABLE', tilt: -5 },
   { id: 2, src: '/assets/gallery/DSC_9681.jpg', caption: 'FIELD_LOG_MAR_26', tilt: 3 },
   { id: 3, src: '/assets/gallery/IMG_6564.jpg', caption: 'VOID_ENTRY_EXP', tilt: -2 },
-  { id: 4, src: '/assets/gallery/SHW01200.jpg', caption: 'ANOMALY_SIGHTING', tilt: 6 },
-  { id: 5, src: '/assets/gallery/SHW01359.jpg', caption: 'CROWD_FREQ_DATA', tilt: -4 },
-  { id: 6, src: '/assets/gallery/SHW01430.jpg', caption: 'MAINFRAME_BREACH', tilt: 2 },
-  { id: 7, src: '/assets/gallery/SHW01486.jpg', caption: 'OS_CORE_UNSTABLE', tilt: -7 },
-  { id: 8, src: '/assets/gallery/SHW01984.jpg', caption: 'RECREATION_SEC_B', tilt: 4 },
+  { id: 4, src: '/assets/gallery/SHW01200.jpg', caption: 'CROWD_FREQ_DATA', tilt: 6 },
+  { id: 5, src: '/assets/gallery/SHW01359.jpg', caption: 'RECREATION_SEC_B', tilt: -4 },
+  { id: 6, src: '/assets/gallery/SHW01430.jpg', caption: 'SUBJECT_DEPT_01', tilt: 2 },
+  { id: 7, src: '/assets/gallery/SHW01486.jpg', caption: 'ANOMALY_SIGHTING', tilt: -7 },
+  { id: 8, src: '/assets/gallery/SHW01984.jpg', caption: 'MAINFRAME_BREACH', tilt: 4 },
 ];
 
 export default function Gallery() {
@@ -24,7 +27,7 @@ export default function Gallery() {
       </div>
 
       <div className={styles.photoBoard}>
-        {images.map((img) => (
+        {GALLERY_ASSETS.map((img) => (
           <motion.div
             key={img.id}
             className={styles.photoCard}

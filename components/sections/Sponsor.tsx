@@ -1,8 +1,11 @@
 'use client';
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import styles from '@/styles/sections/Sponsor.module.css';
 
-const allSponsors = [
+/**
+ * PARTNER_REGISTRY - List of authorized organizations and their status.
+ */
+const PARTNER_REGISTRY = [
   { name: "Google", logo: "/sponsors/google.png", status: "TITLE_ANOMALY" },
   { name: "Microsoft", logo: "/sponsors/ms.png", status: "POWER_CORE" },
   { name: "Intel", logo: "/sponsors/intel.png", status: "POWER_CORE" },
@@ -15,33 +18,28 @@ const allSponsors = [
 export default function Sponsors() {
   const scrollRef = useRef<HTMLDivElement>(null);
 
-  // Optional: Add Mouse Wheel to Horizontal Scroll logic
-  useEffect(() => {
-    const el = scrollRef.current;
-    if (el) {
-      const onWheel = (e: WheelEvent) => {
-        if (e.deltaY === 0) return;
-
-        // Check if we can scroll further horizontally
-        const canScrollLeft = el.scrollLeft > 0;
-        const canScrollRight = el.scrollLeft < (el.scrollWidth - el.clientWidth);
-
-        // If we are at a boundary and trying to scroll further in that direction,
-        // don't preventDefault so the page can scroll vertically.
-        if ((e.deltaY < 0 && !canScrollLeft) || (e.deltaY > 0 && !canScrollRight)) {
-          return;
-        }
-
-        e.preventDefault();
-        el.scrollTo({
-          left: el.scrollLeft + e.deltaY * 3,
-          behavior: 'auto' // 'auto' is better for performance and feels more responsive during wheel scroll
-        });
-      };
-      el.addEventListener('wheel', onWheel);
-      return () => el.removeEventListener('wheel', onWheel);
-    }
-  }, []);
+  // Horizontal scroll logic disabled while COMING SOON overlay is active.
+  // Re-enable this when sponsors are revealed.
+  // useEffect(() => {
+  //   const el = scrollRef.current;
+  //   if (el) {
+  //     const onWheel = (e: WheelEvent) => {
+  //       if (e.deltaY === 0) return;
+  //       const canScrollLeft = el.scrollLeft > 0;
+  //       const canScrollRight = el.scrollLeft < (el.scrollWidth - el.clientWidth);
+  //       if ((e.deltaY < 0 && !canScrollLeft) || (e.deltaY > 0 && !canScrollRight)) {
+  //         return;
+  //       }
+  //       e.preventDefault();
+  //       el.scrollTo({
+  //         left: el.scrollLeft + e.deltaY * 3,
+  //         behavior: 'auto'
+  //       });
+  //     };
+  //     el.addEventListener('wheel', onWheel);
+  //     return () => el.removeEventListener('wheel', onWheel);
+  //   }
+  // }, []);
 
   return (
     <section className={styles.wrapper}>
@@ -67,7 +65,7 @@ export default function Sponsors() {
             <div className={styles.comingSoonSub}>PARTNERSHIP_PROTOCOL_PENDING</div>
           </div>
           <div className={styles.evidenceRow}>
-            {allSponsors.map((sponsor, idx) => (
+            {PARTNER_REGISTRY.map((sponsor, idx) => (
               <div key={idx} className={styles.evidenceCard}>
                 <div className={styles.tape} />
                 <div className={styles.imageBox}>

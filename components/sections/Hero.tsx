@@ -1,7 +1,9 @@
-'use client';
-import { useEffect, useRef, useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import styles from '@/styles/sections/Hero.module.css';
 
+/**
+ * Hero Component - The main landing section with typewriter effect and parallax.
+ */
 const FULL_TEXT = "Deep within the coordinates of IIIT Bhubaneswar, a dimensional rift is widening. Advaita is no longer just a fest—it is a 96-hour convergence of technical mastery and cultural chaos. Since its inception, this anomaly has evolved into the most eminent power surge on the Eastern Front, pulling the nation’s elite technocrats into its neon-soaked orbit. The barrier is at its thinnest this March. Prepare to step through the gate.";
 
 export default function Hero() {
@@ -10,8 +12,10 @@ export default function Hero() {
   const [isTyping, setIsTyping] = useState(false);
 
   useEffect(() => {
-    // 1. Mouse Parallax & Glow Movement
-    const handleMouseMove = (e: MouseEvent) => {
+    /**
+     * trackTemporalShift - Handles mouse-based parallax and glow effects.
+     */
+    const trackTemporalShift = (e: MouseEvent) => {
       if (!sectionRef.current) return;
       const { clientX, clientY } = e;
       const xPct = (clientX / window.innerWidth - 0.5) * 20;
@@ -23,7 +27,7 @@ export default function Hero() {
       sectionRef.current.style.setProperty('--ry', `${yPct}px`);
     };
 
-    // 2. Typewriter Logic
+    // 2. Typewriter Logic initialization
     let i = 0;
     const typingInterval = setInterval(() => {
       setTypedText(FULL_TEXT.slice(0, i));
@@ -34,9 +38,9 @@ export default function Hero() {
       }
     }, 30);
 
-    window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('mousemove', trackTemporalShift);
     return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('mousemove', trackTemporalShift);
       clearInterval(typingInterval);
     };
   }, []);

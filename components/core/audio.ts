@@ -15,11 +15,11 @@ export function isUnlocked() {
   return unlocked;
 }
 
-export function registerMusic(id: string, src: string, volume = 1) {
+export function registerMusic(id: string, src: string, volume = 1, loop = false) {
   if (tracks[id]) return;
 
   const audio = new Audio(src);
-  audio.loop = true;
+  audio.loop = loop;
   audio.volume = 0;
   audio.preload = 'auto';
 
@@ -97,16 +97,25 @@ export function pauseMusic(id: string) {
   }
 }
 
+export function pauseAllMusic() {
+  Object.values(tracks).forEach((track) => {
+    track.audio.pause();
+  });
+}
+
 export function resumeMusic(id: string) {
   const track = tracks[id];
   if (track && track.audio.paused) {
     track.audio.play().catch(e => console.error("Resume failed", e));
-    // Ensure volume is up if it was faded out? 
-    // We assume resume is simple toggle. 
-    // If we want fail-safe, we make sure volume is target
     if (track.audio.volume < track.targetVolume) {
       track.audio.volume = track.targetVolume;
     }
+  }
+}
+
+export function resumeActiveMusic() {
+  if (activeTrack && tracks[activeTrack]) {
+    resumeMusic(activeTrack);
   }
 }
 
