@@ -17,9 +17,11 @@ const GIFS = [
 interface AccessibilityContextType {
     active: boolean;
     toggleActive: (state?: boolean) => void;
+    prepareAudio: () => void;
 }
 
 const AccessibilityContext = createContext<AccessibilityContextType | undefined>(undefined);
+
 
 export const useAccessibility = () => {
     const context = useContext(AccessibilityContext);
@@ -43,6 +45,7 @@ export default function AccessibilityProvider({ children }: { children: React.Re
         return () => window.removeEventListener('resize', checkMobile);
     }, []);
 
+    // Memoize shuffle logic for GIF rotation
     const shuffle = useCallback((array: string[]) => {
         const newArr = [...array];
         for (let i = newArr.length - 1; i > 0; i--) {
@@ -109,6 +112,18 @@ export default function AccessibilityProvider({ children }: { children: React.Re
         }
     }, [active, ensureFocusCapture]);
 
+    /**
+     * prepareAudio - Unlocks the audio element on mobile by playing/pausing 
+     * inside a user-triggered gesture context.
+     */
+    const prepareAudio = useCallback(() => {
+        if (audioRef.current && audioRef.current.paused) {
+            audioRef.current.play().then(() => {
+                audioRef.current?.pause();
+                audioRef.current!.currentTime = 0;
+            }).catch(() => { });
+        }
+    }, []);
     const handleOverlayTap = () => {
         if (isMobile) {
             checkA11yRules();
@@ -188,7 +203,7 @@ export default function AccessibilityProvider({ children }: { children: React.Re
     };
 
     return (
-        <AccessibilityContext.Provider value={{ active, toggleActive }}>
+        <AccessibilityContext.Provider value={{ active, toggleActive, prepareAudio }}>
             {children}
             <AnimatePresence>
                 {active && (

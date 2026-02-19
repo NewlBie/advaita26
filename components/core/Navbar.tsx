@@ -9,7 +9,7 @@ export default function Navbar() {
     const [menuOpen, setMenuOpen] = useState(false);
     const router = useRouter();
     const pathname = usePathname();
-    const { toggleActive } = useAccessibility();
+    const { toggleActive, prepareAudio } = useAccessibility();
     const [timerId, setTimerId] = useState<NodeJS.Timeout | null>(null);
     const [isLongPress, setIsLongPress] = useState(false);
 
@@ -21,6 +21,9 @@ export default function Navbar() {
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
+    /**
+     * handleNavClick - Standard navigation handler for both internal and external routes.
+     */
     const handleNavClick = (id: string, isExternal: boolean = false) => {
         setMenuOpen(false);
 
@@ -63,8 +66,13 @@ export default function Navbar() {
         }
     };
 
+    /**
+     * startLongPress - Triggered on pull cord interaction. 
+     * Primes audio for mobile and starts the 3s easter egg timer.
+     */
     const startLongPress = () => {
         setIsLongPress(false);
+        prepareAudio(); // Prime audio on initial user gesture (fixes mobile silent audio)
         const timer = setTimeout(() => {
             toggleActive(true);
             setMenuOpen(false);

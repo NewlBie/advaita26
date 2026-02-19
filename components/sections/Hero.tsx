@@ -4,6 +4,10 @@ import styles from '@/styles/sections/Hero.module.css';
 /**
  * Hero Component - The main landing section with typewriter effect and parallax.
  */
+/**
+ * Hero component - Handles the main landing visual, typewriter effect,
+ * and mouse-based temporal rift parallax.
+ */
 const FULL_TEXT = "Deep within the coordinates of IIIT Bhubaneswar, a dimensional rift is widening. Advaita is no longer just a fest—it is a 96-hour convergence of technical mastery and cultural chaos. Since its inception, this anomaly has evolved into the most eminent power surge on the Eastern Front, pulling the nation’s elite technocrats into its neon-soaked orbit. The barrier is at its thinnest this March. Prepare to step through the gate.";
 
 export default function Hero() {
