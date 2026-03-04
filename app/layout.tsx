@@ -1,4 +1,5 @@
 import './globals.css';
+import NextTopLoader from 'nextjs-toploader';
 import { Inter, Playfair_Display } from 'next/font/google';
 
 const inter = Inter({
@@ -31,6 +32,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} ${playfair.variable}`}>
       <body>
+        <NextTopLoader color="#ff0000" showSpinner={false} />
         <AccessibilityProvider>
           {children}
         </AccessibilityProvider>

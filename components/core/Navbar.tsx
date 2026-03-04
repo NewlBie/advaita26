@@ -32,10 +32,6 @@ export default function Navbar() {
             return;
         }
 
-        if (id === 'merch') {
-            window.open('https://docs.google.com/forms/d/e/1FAIpQLSdLOLY4iigPmj6h6XjoPWZPJX4kaaJRbVy6mJ4PVjqDd6giuA/viewform?usp=publish-editor', '_blank');
-            return;
-        }
 
         if (id === 'passes') {
             window.open('https://konfhub.com/advaita2026', '_blank');
@@ -114,7 +110,7 @@ export default function Navbar() {
                         <div className={styles.linkWrapper}>
                             <div className={styles.bulb} />
                             <div className={styles.lightCone} />
-                            <button onClick={() => handleNavClick('merch')} className={styles.link}>Merch</button>
+                            <button onClick={() => handleNavClick('merch', true)} className={styles.link}>Merch</button>
                         </div>
                         <div className={styles.linkWrapper}>
                             <div className={styles.bulb} />
@@ -172,7 +168,7 @@ export default function Navbar() {
             <div className={`${styles.mobileMenu} ${menuOpen ? styles.menuOpen : ''}`}>
                 <button onClick={() => handleNavClick('top')} className={styles.mobileLink}>Home</button>
                 <button onClick={() => handleNavClick('events', true)} className={styles.mobileLink}>The Events</button>
-                <button onClick={() => handleNavClick('merch')} className={styles.mobileLink}>Merch</button>
+                <button onClick={() => handleNavClick('merch', true)} className={styles.mobileLink}>Merch</button>
                 <button onClick={() => handleNavClick('passes')} className={styles.mobileLink}>Passes</button>
                 <button onClick={() => handleNavClick('register')} className={styles.mobileLink}>Register</button>
 
