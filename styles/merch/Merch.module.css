@@ -97,6 +97,7 @@
     transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
+    cursor: zoom-in;
 }
 
 .merchItem::before {
@@ -185,5 +186,64 @@
     .mainTitle {
         font-size: 3.5rem;
         margin-bottom: 2rem;
+    }
+}
+
+/* ---------- LIGHTBOX ---------- */
+
+.lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    background: rgba(0, 0, 0, 0.85);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(8px);
+    cursor: zoom-out;
+}
+
+.lightboxContent {
+    position: relative;
+    max-width: 90vw;
+    max-height: 90vh;
+    animation: zoomIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.lightboxImage {
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 85vh;
+    object-fit: contain;
+    border: 2px solid rgba(255, 0, 0, 0.4);
+    box-shadow: 0 0 40px rgba(255, 0, 0, 0.2);
+    border-radius: 8px;
+    display: block;
+}
+
+.closeHint {
+    position: absolute;
+    bottom: -35px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #ff3333;
+    font-family: 'Courier New', monospace;
+    letter-spacing: 3px;
+    font-size: 0.85rem;
+    pointer-events: none;
+    text-shadow: 0 0 10px rgba(255, 0, 0, 0.8);
+    white-space: nowrap;
+}
+
+@keyframes zoomIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
     }
 }

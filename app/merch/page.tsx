@@ -8,6 +8,7 @@ import styles from '@/styles/merch/Merch.module.css';
 
 export default function MerchPage() {
     const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+    const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
     useEffect(() => {
         const handleMouseMove = (e: MouseEvent) => {
@@ -23,9 +24,9 @@ export default function MerchPage() {
     }, []);
 
     const merchItems = [
-        { id: 1, title: "Advaita '26 Classic Tee", image: "/assets/merch/web-1.gif" },
-        { id: 2, title: "Hellfire Club Edition", image: "/assets/merch/web-2.gif" },
-        { id: 3, title: "Upside Down Hoodie", image: "/assets/merch/web-3.gif" },
+        { id: 1, title: "Last Strange Adventure", image: "/assets/merch/web-1.gif" },
+        { id: 2, title: "WSQK Tee", image: "/assets/merch/web-2.gif" },
+        { id: 3, title: "Hellfire Edition Hoodie", image: "/assets/merch/web-3.gif" },
     ];
 
     return (
@@ -54,7 +55,11 @@ export default function MerchPage() {
 
                     <div className={styles.merchGrid}>
                         {merchItems.map((item) => (
-                            <div key={item.id} className={styles.merchItem}>
+                            <div
+                                key={item.id}
+                                className={styles.merchItem}
+                                onClick={() => setSelectedImage(item.image)}
+                            >
                                 <div className={styles.imageWrapper}>
                                     <Image
                                         src={item.image}
@@ -69,6 +74,23 @@ export default function MerchPage() {
                             </div>
                         ))}
                     </div>
+
+                    {/* LIGHTBOX MODAL */}
+                    {selectedImage && (
+                        <div className={styles.lightbox} onClick={() => setSelectedImage(null)}>
+                            <div className={styles.lightboxContent} onClick={(e) => e.stopPropagation()}>
+                                <Image
+                                    src={selectedImage}
+                                    alt="Enlarged Merch View"
+                                    width={1000}
+                                    height={1000}
+                                    className={styles.lightboxImage}
+                                    unoptimized
+                                />
+                                <div className={styles.closeHint}>[ CLICK OUTSIDE TO CLOSE ]</div>
+                            </div>
+                        </div>
+                    )}
 
                     <div className={styles.buttonContainer}>
                         <Link href="/" className={styles.secondaryBtn}>
